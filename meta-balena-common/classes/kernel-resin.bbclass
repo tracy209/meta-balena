@@ -264,6 +264,14 @@ RESIN_CONFIGS[brcmfmac] ?= " \
     "
 
 #
+# BTRFS support
+#
+RESIN_CONFIGS[btrfs] ?= " \
+    CONFIG_BTRFS_FS=y \
+    CONFIG_BTRFS_FS_POSIX_ACL=y \
+    "
+
+#
 # Most of the resin supported boards have user controllable LEDs
 #
 RESIN_CONFIGS_DEPS[leds-gpio] ?= " \
