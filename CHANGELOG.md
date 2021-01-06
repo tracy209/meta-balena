@@ -1,6 +1,18 @@
 Change log
 -----------
 
+# v2.67.0
+## (2021-01-06)
+
+* kernel-resin: enable BTRFS support when present in DISTRO_FEATURES [Joseph Kogut]
+* kernel-resin: add config for BTRFS support [Joseph Kogut]
+* u-boot: enable BTRFS support when enabled in DISTRO_FEATURES [Joseph Kogut]
+* image_types_resin: use BALENA_FSTYPE for RESIN_ROOT_FSTYPE [Joseph Kogut]
+* conf: balena-os: add BALENA_FSTYPE var [Joseph Kogut]
+* image_types_resin: make rootfs labeling generic [Joseph Kogut]
+* image_types_resin: make agnostic to root fstype [Joseph Kogut]
+* mkfs-hostapp-native: make agnostic to fstype [Joseph Kogut]
+
 # v2.66.1
 ## (2021-01-04)
 

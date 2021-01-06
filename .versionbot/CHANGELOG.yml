@@ -1,4 +1,98 @@
 - commits:
+    - subject: 'kernel-resin: enable BTRFS support when present in DISTRO_FEATURES'
+      hash: d701a60b990e51b9a0174c6d552017d098f97b0b
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+    - subject: 'kernel-resin: add config for BTRFS support'
+      hash: d34c0445fa139ca14f1569d02d04bdf4bdc56e1c
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+    - subject: 'u-boot: enable BTRFS support when enabled in DISTRO_FEATURES'
+      hash: 4c20e3d810b5a76a6107bcb6227a67f6d4b45730
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+    - subject: 'image_types_resin: use BALENA_FSTYPE for RESIN_ROOT_FSTYPE'
+      hash: 4636e462f2f2d07aaa08590821a4ab4a224d13b5
+      body: |
+        This allows device repositories to override a variable to change the
+        root filesystem type.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+    - subject: 'conf: balena-os: add BALENA_FSTYPE var'
+      hash: 651e764b8302a680f1793ba516b51ab4a2e8c5d7
+      body: |
+        This variable sets the default filesystem type. This also enables a
+        DISTRO_FEATURE that can be used to enable support for the filesystem in
+        the bootloader and kernel.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+    - subject: 'image_types_resin: make rootfs labeling generic'
+      hash: d9a1a02a318eb3fb1dbd65342139d410feb99b8f
+      body: ''
+      footer:
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+        Change-type: patch
+        change-type: patch
+      author: Joseph Kogut
+      nested: []
+    - subject: 'image_types_resin: make agnostic to root fstype'
+      hash: e7c05b945190f33364a2cfdca2353a11fb51e004
+      body: |
+        Build RESIN_HOSTAPP_IMG path using RESIN_ROOT_FSTYPE instead of assuming
+        the root is ext4.
+      footer:
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+        Change-type: patch
+        change-type: patch
+      author: Joseph Kogut
+      nested: []
+    - subject: 'mkfs-hostapp-native: make agnostic to fstype'
+      hash: 1f1d27e84b62b80be8ca9f962386ed07f148767b
+      body: |
+        Remove assumptions about root fstype. Rename create to create.ext4,
+        mkfs.hostapp-ext4 to mkfs.hostapp, and add an argument to mkfs.hostapp
+        for fstype. Remove CMD from Dockerfile in favor of passing it as an
+        argument to docker run.
+      footer:
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+        Change-type: minor
+        change-type: minor
+      author: Joseph Kogut
+      nested: []
+  version: 2.67.0
+  date: 2021-01-06T23:49:39.260Z
+- commits:
     - subject: 'kernel-devsrc: use upstream recipe starting with dunfell'
       hash: 1300a223f5b58dd4584b62e87df41ec72f783961
       body: |
