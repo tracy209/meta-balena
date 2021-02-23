@@ -1,6 +1,11 @@
 Change log
 -----------
 
+# v2.72.0
+## (2021-02-23)
+
+* Default the storage driver to overlay2 [Robert Günzler]
+
 # v2.71.0
 ## (2021-02-15)
 

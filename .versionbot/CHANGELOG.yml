@@ -1,4 +1,17 @@
 - commits:
+    - subject: Default the storage driver to overlay2
+      hash: c1131db20be30c047bf6e68131a9c21a597f8b6b
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Robert Günzler <robertg@balena.io>
+        signed-off-by: Robert Günzler <robertg@balena.io>
+      author: Robert Günzler
+      nested: []
+  version: 2.72.0
+  date: 2021-02-23T15:10:40.898Z
+- commits:
     - subject: 'meta-balena-common: add grub-efi support'
       hash: 3bfbd05d81d59c82fb131117700325416fb152cb
       body: |
