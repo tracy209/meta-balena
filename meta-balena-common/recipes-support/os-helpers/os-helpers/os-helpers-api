@@ -1,0 +1,4 @@
+#!/bin/sh
+
+BALENA_HOSTOS_APP_UUID="io.balena.app-uuid"
+BALENA_HOSTOS_SERVICE_NAME="io.balena.service-name"
