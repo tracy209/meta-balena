@@ -129,5 +129,6 @@ module.exports = {
     "./tests/engine-healthcheck",
     "./tests/udev",
     "./tests/device-tree",
+    "./tests/modem",
   ],
 };
