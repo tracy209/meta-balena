@@ -1,4 +1,27 @@
 - commits:
+    - subject: generate modem tests based on env variable
+      hash: 2ba503b22833a1c5744bc484aabf65b392aab102
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: Adds modems to os test suite
+      hash: 705f014e03c2a16cb2e80f7babd06b8dd59bf228
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Alex Bucknall <alexbucknall@balena.io>
+        signed-off-by: Alex Bucknall <alexbucknall@balena.io>
+      author: Alex Bucknall
+      nested: []
+  version: 2.80.0
+  date: 2021-05-28T14:36:11.878Z
+- commits:
     - subject: 'bluez5: Use bluez5 recipe from poky master'
       hash: fe3c870eef75927eac740bbc1e8e15b8ed9c7341
       body: |

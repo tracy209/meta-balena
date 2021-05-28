@@ -1,6 +1,12 @@
 Change log
 -----------
 
+# v2.80.0
+## (2021-05-28)
+
+* generate modem tests based on env variable [rcooke-warwick]
+* Adds modems to os test suite [Alex Bucknall]
+
 # v2.79.6
 ## (2021-05-26)
 
