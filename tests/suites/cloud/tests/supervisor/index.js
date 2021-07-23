@@ -85,6 +85,19 @@ module.exports = {
             this.context.get().balena.uuid
           );
 
+
+        test.comment(`Confirming Supervisor has been removed`)
+        test.is(
+          await this.context
+          .get()
+          .cloud.executeCommandInHostOS(
+            `balena ps | grep supervisor`,
+            this.context.get().balena.uuid
+          ),
+          "",
+          `Supervisor image should have been removed`
+        )
+
         // run supervisor update script
         test.comment(`running update supervisor script...`);
         let updateLog = await this.context
@@ -95,6 +108,10 @@ module.exports = {
           );
 
         test.comment(updateLog)
+        test.ok(
+          updateLog !== "",
+          `Should see supervisor update logs`
+        )
 
         let updatedSupervisorVersion = "";
         await this.context.get().utils.waitUntil(async () => {
@@ -183,10 +200,9 @@ module.exports = {
           `Release should be downloaded, but not running due to lockfile`
         );
 
-
         let updatesLocked = await this.context.get().cloud.checkLogsContain(
           this.context.get().balena.uuid, 
-          `Updates are locked, retrying in 2s...`,           
+          `Updates are locked`,           
         );
 
         test.ok(updatesLocked, `Update lock message should appear in logs`)
