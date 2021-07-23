@@ -16,9 +16,9 @@ async function getJournalLogs(that){
   // there may be quite a lot in the persistant logs, so we want to check if there's any persistant logs first in /var/logs/journal
   let logs = ""
   try{
-    logs = await that.context.get().worker.executeCommandInHostOS(
+    logs = await that.context.get().cloud.executeCommandInHostOS(
     `journalctl -a --no-pager`,
-    that.context.get().link
+    that.context.get().balena.uuid
     )
   }catch(e){
     that.log(`Couldn't retrieve journal logs with error ${e}`)
@@ -175,6 +175,7 @@ module.exports = {
       .get()
       .cloud.balena.models.device.get(this.context.get().balena.uuid);
     config.deviceId = devId.id;
+    config.persistentLogging = true;
 
     // get ready to populate DUT image config.json with the attributes we just generated
     this.context.get().os.addCloudConfig(config);
@@ -246,6 +247,14 @@ module.exports = {
 
       return unpinned
     }, false);
+
+    // wait until the service is running before continuing
+    await this.context.get().cloud.waitUntilServicesRunning(
+      this.context.get().balena.uuid, 
+      [`main`], 
+      this.context.get().balena.initialCommit
+    )
+
 
   },
   tests: [

@@ -1,5 +1,5 @@
 "use strict";
-
+const Bluebird = require("bluebird");
 module.exports = {
   title: "Image preload test",
   run: async function (test) {
@@ -18,6 +18,9 @@ module.exports = {
     )
 
     test.ok(true, `Preload commit hash should be ${this.context.get().balena.initialCommit}`);
+
+    // give it some time to be sure no release is downloaded
+    await Bluebird.delay(1000*60*2)
 
     let downloadedLog = await this.context.get().cloud.checkLogsContain(
       this.context.get().balena.uuid, 
