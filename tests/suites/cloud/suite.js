@@ -48,7 +48,7 @@ module.exports = {
         organization: this.suite.options.balena.organization,
         sshKey: { label: this.suite.options.id },
       },
-      cli: new CLI(this.getLogger()),
+      cli: new CLI(this.suite.options.balena.apiUrl, this.getLogger()),
       sshKeyPath: join(homedir(), "id"),
       utils: this.require("common/utils"),
       worker: new Worker(this.suite.deviceType.slug, this.getLogger()),
