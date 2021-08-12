@@ -1,5 +1,9 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
+SRC_URI_append = " \
+    file://mdns.allow \
+    "
+
 do_install_append () {
 	# Systemd provides mtab so if activated, don't let base-files provide it too
 	# We avoid errors at do_rootfs in this way when using opkg
@@ -10,4 +14,8 @@ do_install_append () {
 	# Supervisor depends on the existance of /lib/modules even if we don't
 	# deploy any kernel modules (ex.: resinOS in container)
 	install -d -m 755 ${D}/lib/modules
+}
+
+do_install_append_libc-glibc () {
+	install -m 0644 ${WORKDIR}/mdns.allow ${D}${sysconfdir}/mdns.allow
 }
