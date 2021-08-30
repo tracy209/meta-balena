@@ -12,6 +12,7 @@ const { join } = require("path");
 const { homedir } = require("os");
 const { exec } = require("mz/child_process");
 
+// Remove this when https://github.com/balena-os/leviathan/pull/476 is merged and deployed
 async function getJournalLogs(that){
   // there may be quite a lot in the persistant logs, so we want to check if there's any persistant logs first in /var/logs/journal
   let logs = ""
@@ -27,7 +28,7 @@ async function getJournalLogs(that){
   const logPath = "/tmp/journal.log";
   fse.writeFileSync(logPath, logs);
   await that.archiver.add(logPath);
-} 
+}
 
 module.exports = {
   title: "Managed BalenaOS release suite",
@@ -72,7 +73,7 @@ module.exports = {
       delete this.suite.options.balenaOS.network.wireless;
     }
 
-    // login
+    // Authenticating balenaSDK
     this.log("Logging into balena with balenaSDK");
     await this.context
       .get()
@@ -180,25 +181,21 @@ module.exports = {
     // get ready to populate DUT image config.json with the attributes we just generated
     this.context.get().os.addCloudConfig(config);
 
-
     // Teardown the worker when the tests end
     this.suite.teardown.register(() => {
       this.log("Worker teardown");
       return this.context.get().worker.teardown();
     });
 
-
-    // ADD WHEN PRELOAD FIXED
     // preload image with the single container application
     this.log(`Device uuid should be ${this.context.get().balena.uuid}`)
-    //this.log("Preloading image...");*/
+    this.log("Preloading image...");*/
     await this.context.get().os.configure();
-    /*console.log(this.context.get().os.image.path)
     await this.context.get().cli.preload(this.context.get().os.image.path, {
       app: this.context.get().balena.application,
       commit: initialCommit,
       pin: true,
-    });*/
+    });
 
     this.log("Setting up worker");
     await this.context
@@ -209,7 +206,7 @@ module.exports = {
       this.log("Retreiving journal logs...");
       await getJournalLogs(this)
     })
-  
+
     await this.context.get().worker.off();
     await this.context.get().worker.flash(this.context.get().os.image.path);
     await this.context.get().worker.on();
@@ -233,7 +230,7 @@ module.exports = {
       return hostname === this.context.get().balena.uuid.slice(0, 7)
     }, false);
 
-    /*this.log("Unpinning");
+    this.log("Unpinning");
     await this.context.get().utils.waitUntil(async () => {
       this.log(`Unpinning device from release`)
       await this.context
@@ -247,19 +244,17 @@ module.exports = {
       .cloud.balena.models.device.isTrackingApplicationRelease(this.context.get().balena.uuid)
 
       return unpinned
-    }, false);*/
+    }, false);
 
     // wait until the service is running before continuing
     await this.context.get().cloud.waitUntilServicesRunning(
-      this.context.get().balena.uuid, 
-      [`main`], 
+      this.context.get().balena.uuid,
+      [`main`],
       this.context.get().balena.initialCommit
     )
-
-
   },
   tests: [
-    //"./tests/preload",
+    "./tests/preload",
     "./tests/supervisor",
     "./tests/multicontainer",
   ],
