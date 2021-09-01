@@ -12,24 +12,6 @@ const { join } = require("path");
 const { homedir } = require("os");
 const { exec } = require("mz/child_process");
 
-// Remove this when https://github.com/balena-os/leviathan/pull/476 is merged and deployed
-async function getJournalLogs(that){
-  // there may be quite a lot in the persistant logs, so we want to check if there's any persistant logs first in /var/logs/journal
-  let logs = ""
-  try{
-    logs = await that.context.get().cloud.executeCommandInHostOS(
-    `journalctl -a --no-pager`,
-    that.context.get().balena.uuid
-    )
-  }catch(e){
-    that.log(`Couldn't retrieve journal logs with error ${e}`)
-  }
-
-  const logPath = "/tmp/journal.log";
-  fse.writeFileSync(logPath, logs);
-  await that.archiver.add(logPath);
-}
-
 module.exports = {
   title: "Managed BalenaOS release suite",
   run: async function () {
@@ -189,7 +171,7 @@ module.exports = {
 
     // preload image with the single container application
     this.log(`Device uuid should be ${this.context.get().balena.uuid}`)
-    this.log("Preloading image...");*/
+    this.log("Preloading image...");
     await this.context.get().os.configure();
     await this.context.get().cli.preload(this.context.get().os.image.path, {
       app: this.context.get().balena.application,
@@ -202,11 +184,6 @@ module.exports = {
       .get()
       .worker.network(this.suite.options.balenaOS.network);
 
-    this.suite.teardown.register(async() => {
-      this.log("Retreiving journal logs...");
-      await getJournalLogs(this)
-    })
-
     await this.context.get().worker.off();
     await this.context.get().worker.flash(this.context.get().os.image.path);
     await this.context.get().worker.on();
@@ -216,6 +193,11 @@ module.exports = {
       return await this.context
         .get()
         .cloud.balena.models.device.isOnline(this.context.get().balena.uuid) === true;
+    });
+
+    // Retrieving journalctl logs
+    this.suite.teardown.register(async () => {
+      await this.context.get().worker.archiveLogs(this.id, this.context.get().link);
     });
 
     this.log("Device is online and provisioned successfully");
