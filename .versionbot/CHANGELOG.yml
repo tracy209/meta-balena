@@ -1,4 +1,17 @@
 - commits:
+    - subject: 'common: enable multi-label mDNS resolution and IPv6'
+      hash: c5da08c715a1d2fd025e9bdb741fb1f99778da4a
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+  version: 2.84.4
+  date: 2021-09-09T20:29:41.875Z
+- commits:
     - subject: 'tests: Prevent failure when journalctl has no logs for some boots'
       hash: cab2b5aa7b97afad9006ed3c3701e49a9d76d366
       body: ''
