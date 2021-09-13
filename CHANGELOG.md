@@ -1,6 +1,11 @@
 Change log
 -----------
 
+# v2.84.8
+## (2021-09-13)
+
+* dosfstools: selectively apply upstreamed patch [Joseph Kogut]
+
 # v2.84.7
 ## (2021-09-13)
 
