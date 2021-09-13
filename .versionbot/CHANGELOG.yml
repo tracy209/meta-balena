@@ -1,4 +1,28 @@
 - commits:
+    - subject: 'dosfstools: selectively apply upstreamed patch'
+      hash: 607d51b533f84ad06cb0ed5b2e4304b0e5090aa2
+      body: >
+        This patch was submitted and accepted upstream, and is present since
+
+        v4.2.
+
+
+        https://github.com/dosfstools/dosfstools/commit/87a8f29785bb605350821f1638a42e6cf3e49ce3
+
+
+        This fixes a build error applying a patch that's already been applied
+
+        when building newer versions of dosfstools.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+  version: 2.84.8
+  date: 2021-09-13T17:43:52.976Z
+- commits:
     - subject: 'hostapp-update-hooks: Fix blacklisted extlinux.conf file path'
       hash: 096024808224aea2100e2a2a1f95ef75e23493ef
       body: |
