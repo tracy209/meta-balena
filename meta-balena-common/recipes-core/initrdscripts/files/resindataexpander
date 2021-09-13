@@ -54,14 +54,12 @@ resindataexpander_run() {
 	        info "resindataexpander: Finished expanding data partition."
 	        partprobe
 	        sync
-                # We return when we've done the expansion
-		info "Data partition at $datapart expanded."
-		# Expand filesystem
-		info "resindataexpander: Expand ext4 filesystem on ${datapart}"
-		resize2fs -f "${datapart}"
-		sync
-                return
         fi
     done
-    info "No data partition expanding needed."
+
+    # Expand filesystem
+    info "resindataexpander: Expand ext4 filesystem on ${datapart}"
+    # resize and print the second to last line from resize2fs, which is a good enough message itself
+    info $(resize2fs -f ${datapart} | 2>&1 | sed 'x;$!d')
+    sync
 }
