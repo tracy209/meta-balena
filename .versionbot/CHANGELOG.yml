@@ -1,4 +1,17 @@
 - commits:
+    - subject: 'tests/hup: Add storagemigration tests'
+      hash: ccd4040e39959297f2bff947d964a3ed513cf969
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Robert Günzler <robertg@balena.io>
+        signed-off-by: Robert Günzler <robertg@balena.io>
+      author: Robert Günzler
+      nested: []
+  version: 2.85.1
+  date: 2021-09-15T14:21:20.921Z
+- commits:
     - subject: Replace image variants with development mode
       hash: 0c7c629dcde13de9188f05f6f551f34837ad84ff
       body: |
