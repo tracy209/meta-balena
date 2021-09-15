@@ -1,6 +1,11 @@
 Change log
 -----------
 
+# v2.85.1
+## (2021-09-15)
+
+* tests/hup: Add storagemigration tests [Robert Günzler]
+
 # v2.85.0
 ## (2021-09-15)
 
