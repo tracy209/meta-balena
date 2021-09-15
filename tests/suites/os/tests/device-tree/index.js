@@ -26,24 +26,35 @@ module.exports = {
 			run: async function (test) {
 				let ip = await this.context.get().worker.ip(this.context.get().link);
 
-				const exportPin = async (pin) => {
+				const exportPin = async () => {
 					return await this.context.get().worker.executeCommandInHostOS(
-						`echo ${pin} >/sys/class/gpio/export`,
+						`echo 4 >/sys/class/gpio/export`,
 						this.context.get().link
 					)
 				}
-				const unexportPin = async (pin) => {
+				const unexportPin = async () => {
 					return await this.context.get().worker.executeCommandInHostOS(
-						`echo ${pin} >/sys/class/gpio/unexport`,
+						`echo 4 >/sys/class/gpio/unexport`,
 						this.context.get().link
 					)
 				}
 
-				const getPinValue = async (pin) => {
+				const getPinValue = async () => {
 					return await this.context.get().worker.executeCommandInHostOS(
-						`cat /sys/class/gpio/gpio${pin}/value`,
+						`cat /sys/class/gpio/gpio4/value`,
 						this.context.get().link
 					)
+				}
+
+				// After applying Dtoverlay, the GPIO pins becomes unavailable as drivers take over the control
+				// We can't query the value using sysfs hence using /sys/kernel/debug/gpio
+				const getPinValueThroughDebug = async () => {
+					const getValue = fs.readFileSync(`${__dirname}/getValue.sh`).toString();
+
+					return await this.context.get().worker.executeCommandInHostOS(
+							`cd /tmp && ${getValue}`,
+							this.context.get().link,
+						);
 				}
 
 				const applySupervisorConfig = async (direction) => {
@@ -129,24 +140,17 @@ module.exports = {
 				await exportPin(4)
 				if (await getPinValue(4) === "0") {
 					test.equal(await getPinValue(4), "0", "Pin 4 was Low when the test started")
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
+					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
 					await unexportPin(4)
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
+					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
 					await applySupervisorConfig("up")
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
-					await exportPin(4)
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
-					test.equal(await getPinValue(4), "1", "Pin 4 is set to High after applying dtoverlay")
-					await unexportPin(4)
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
+					test.equal(await getPinValueThroughDebug(4), '"hi"', "Pin 4 is set to High after applying dtoverlay")
+					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
 				} else {
 					test.equal(await getPinValue(4), "1", "Pin 4 is High as expected")
 					await unexportPin(4)
 					await applySupervisorConfig("down")
-					await exportPin(4)
-					console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
-					test.equal(await getPinValue(4), "0", "Pin 4 is set to Low after applying dtoverlay")
-					await unexportPin(4)
+					test.equal(await getPinValueThroughDebug(4), '"lo"', "Pin 4 is set to Low after applying dtoverlay")
 				}
 
 				// Get the current target state of device
