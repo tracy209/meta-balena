@@ -25,32 +25,34 @@ module.exports = {
 			title: 'DToverlay & DTparam tests',
 			run: async function (test) {
 				let ip = await this.context.get().worker.ip(this.context.get().link);
+				let targetState
 
+				// Export the GPIO pin
 				const exportPin = async () => {
 					return await this.context.get().worker.executeCommandInHostOS(
 						`echo 4 >/sys/class/gpio/export`,
 						this.context.get().link
 					)
 				}
-				const unexportPin = async () => {
-					return await this.context.get().worker.executeCommandInHostOS(
-						`echo 4 >/sys/class/gpio/unexport`,
-						this.context.get().link
-					)
-				}
 
+				// Check value of GPIO pin and unexport the GPIO pin
 				const getPinValue = async () => {
-					return await this.context.get().worker.executeCommandInHostOS(
+					const pinValue =  await this.context.get().worker.executeCommandInHostOS(
 						`cat /sys/class/gpio/gpio4/value`,
 						this.context.get().link
 					)
+
+					await this.context.get().worker.executeCommandInHostOS(
+						`echo 4 >/sys/class/gpio/unexport`,
+						this.context.get().link
+					)
+					return pinValue
 				}
 
-				// After applying Dtoverlay, the GPIO pins becomes unavailable as drivers take over the control
-				// We can't query the value using sysfs hence using /sys/kernel/debug/gpio
+				// After applying Dtoverlay, the GPIO pins becomes unavailable as drivers take control over the pin
+				// Hence, sysfs can't be used to query the value of the GPIO pin hence the user of /sys/kernel/debug/gpio
 				const getPinValueThroughDebug = async () => {
 					const getValue = fs.readFileSync(`${__dirname}/getValue.sh`).toString();
-
 					return await this.context.get().worker.executeCommandInHostOS(
 							`cd /tmp && ${getValue}`,
 							this.context.get().link,
@@ -68,7 +70,7 @@ module.exports = {
 						);
 					}, false);
 
-					const targetState = {
+					targetState = {
 						local: {
 							name: 'local',
 							config: {
@@ -94,7 +96,7 @@ module.exports = {
 						);
 
 					// Setting the device tree variables using Supervisor API
-					// This request reboots the DUT
+					// This request reboots the DUT automatically
 					const setTargetState = await request({
 						method: 'POST',
 						headers: {
@@ -108,7 +110,7 @@ module.exports = {
 					test.same(
 						setTargetState,
 						{ status: 'success', message: 'OK' },
-						'DToverlay & DTparam configured successfully through Supervisor API',
+						'DToverlay & DTparam configured successfully',
 					);
 
 					await this.context.get().utils.waitUntil(async () => {
@@ -135,22 +137,20 @@ module.exports = {
 							})) === 'OK'
 						);
 					}, false);
+
+					return targetState
 				}
 
+				// Start of the device-tree practical test
 				await exportPin(4)
 				if (await getPinValue(4) === "0") {
-					test.equal(await getPinValue(4), "0", "Pin 4 was Low when the test started")
-					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
-					await unexportPin(4)
-					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
-					await applySupervisorConfig("up")
-					test.equal(await getPinValueThroughDebug(4), '"hi"', "Pin 4 is set to High after applying dtoverlay")
-					// console.log(await this.context.get().worker.executeCommandInHostOS("ls /sys/class/gpio/", this.context.get().link))
+					test.true("Pin 4 was Low when the test started")
+					const targetState = await applySupervisorConfig("up")
+					test.equal(await getPinValueThroughDebug(4), '"hi"', "Pin 4 set to High after applying dtoverlay")
 				} else {
-					test.equal(await getPinValue(4), "1", "Pin 4 is High as expected")
-					await unexportPin(4)
-					await applySupervisorConfig("down")
-					test.equal(await getPinValueThroughDebug(4), '"lo"', "Pin 4 is set to Low after applying dtoverlay")
+					test.true("Pin 4 is High as expected")
+					const targetState = await applySupervisorConfig("down")
+					test.equal(await getPinValueThroughDebug(4), '"lo"', "Pin 4 set to Low after applying dtoverlay")
 				}
 
 				// Get the current target state of device
@@ -160,6 +160,7 @@ module.exports = {
 					json: true,
 				});
 
+				// Making sure currentState of the DUT matches the target state that was being set. 
 				test.equal(
 					currentState.state.local.config.HOST_CONFIG_dtoverlay,
 					targetState.local.config.HOST_CONFIG_dtoverlay,
@@ -171,12 +172,10 @@ module.exports = {
 					'DTparam successfully set in target state',
 				);
 
-				const dtoverlay = fs
-					.readFileSync(`${__dirname}/dtoverlay.sh`)
-					.toString();
+				const dtoverlay = fs.readFileSync(`${__dirname}/dtoverlay.sh`).toString();
 				const dtparam = fs.readFileSync(`${__dirname}/dtparam.sh`).toString();
 
-				const overlayConfigTxt = await this.context
+				const dtOverlayConfigTxt = await this.context
 					.get()
 					.worker.executeCommandInHostOS(
 						`cd /tmp && ${dtoverlay}`,
@@ -184,20 +183,20 @@ module.exports = {
 					);
 
 				test.equal(
-					overlayConfigTxt,
+					dtOverlayConfigTxt,
 					targetState.local.config.HOST_CONFIG_dtoverlay,
-					'DToverlay successfully configured in the config.txt',
+					'DToverlays successfully configured in config.txt',
 				);
-				const paramConfigTxt = await this.context
+				const dtParamConfigTxt = await this.context
 					.get()
 					.worker.executeCommandInHostOS(
 						`cd /tmp && ${dtparam}`,
 						this.context.get().link,
 					);
 				test.equal(
-					paramConfigTxt,
+					dtParamConfigTxt,
 					targetState.local.config.HOST_CONFIG_dtparam,
-					'DTparam successfully configured in the config.txt',
+					'DTparams successfully configured in config.txt',
 				);
 			},
 		},
