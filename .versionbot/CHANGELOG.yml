@@ -1,4 +1,18 @@
 - commits:
+    - subject: 'mobyinit: Set GOPATH not to use Go''s ${USER}/go default'
+      hash: 9eddca9668b1b5716157558ed00099c3dd683c9d
+      body: |
+        Fixes #2176
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.85.6
+  date: 2021-09-28T10:04:20.447Z
+- commits:
     - subject: Run iwlwifi firmware cleanup in fakeroot
       hash: 24b6b9cdc0228c85671a0ba492cfd148a6c547ae
       body: |
