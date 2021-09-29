@@ -1,4 +1,67 @@
 - commits:
+    - subject: disable preload test until preload fixed
+      hash: b6af9df20704f146d3cb93dd85d1fc569d732413
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: udpate suite to work with latest images
+      hash: a9e57303d4b0cfe79d0f30c52d5e8d9d288a83d6
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: update suite
+      hash: d733c04ef06af90ed073d0273069286dc9cef4d6
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: add os release read
+      hash: 770c3bc12ec06c2c29f0a0946b2a3da6b1f23eac
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: speed up tests
+      hash: cb906da0fe82f163bc152dc5d5d7eb34abd07ecd
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+    - subject: 'add more testlodge tests, that involve cloud'
+      hash: b4b14e6f92f5637d541c83da8a36592a021634dd
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ryan Cooke <ryan@balena.io>
+        signed-off-by: Ryan Cooke <ryan@balena.io>
+      author: rcooke-warwick
+      nested: []
+  version: 2.85.7
+  date: 2021-09-29T12:22:12.235Z
+- commits:
     - subject: 'kernel-balena: Fix kernel config warning for UPROBE_EVENTS'
       hash: 877a846369f8863145546afe4899de8f14148d94
       body: |

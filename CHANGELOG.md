@@ -1,6 +1,16 @@
 Change log
 -----------
 
+# v2.85.7
+## (2021-09-29)
+
+* disable preload test until preload fixed [rcooke-warwick]
+* udpate suite to work with latest images [rcooke-warwick]
+* update suite [rcooke-warwick]
+* add os release read [rcooke-warwick]
+* speed up tests [rcooke-warwick]
+* add more testlodge tests, that involve cloud [rcooke-warwick]
+
 # v2.85.6
 ## (2021-09-27)
 
