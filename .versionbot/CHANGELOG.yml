@@ -1,4 +1,21 @@
 - commits:
+    - subject: Make sure u-boot is able to import an environment file
+      hash: 1d33f79340aae967d1854f0e215d5ea97f1ba1d9
+      body: |
+        BalenaOS requires the `env import` command to be available so make sure
+        to configure u-boot accordingly.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Changelog-entry: Make sure u-boot is able to import an environment file
+        changelog-entry: Make sure u-boot is able to import an environment file
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.85.8
+  date: 2021-09-30T13:32:57.041Z
+- commits:
     - subject: 'balena-healthcheck: Remove redundant steps and rely on hello-world'
       hash: 33925aa5132f23e92d3754b4422c22f40d854d42
       body: |
