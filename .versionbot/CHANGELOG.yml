@@ -1,4 +1,17 @@
 - commits:
+    - subject: 'common: image-balena: enable developmentMode when OS_DEVELOPMENT=1'
+      hash: 6526d63129db95b2ca703eecec5e1232b7b739f1
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+  version: 2.85.4
+  date: 2021-10-01T20:35:18.320Z
+- commits:
     - subject: 'balena-os-sysctl: Reduce the console default loglevel'
       hash: 626b0e25cbd13ca65a74bbfe09ff9e0828b380bb
       body: |
