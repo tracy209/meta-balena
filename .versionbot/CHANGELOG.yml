@@ -1,4 +1,33 @@
 - commits:
+    - subject: 'balena-image: Default image type to balenaos-img'
+      hash: e291cb55e6c07542dfb0ee2ecd5df154d0f14b66
+      body: |
+        This avoids device repositories having to specify it, and it can always
+        be overwritten in append files.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: Remove legacy resinhup images.
+      hash: 1c373ca9d86e0403b8a915f1de38eeecf301e4c2
+      body: |
+        These image types are no longer generated and are not used for hostOS
+        updates any longer.
+      footer:
+        Changelog-entry: Remove legacy resinhup images.
+        changelog-entry: Remove legacy resinhup images.
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.85.9
+  date: 2021-10-01T08:30:20.764Z
+- commits:
     - subject: 'hostapp-update-hooks: Blacklist Rock Pi configuration file'
       hash: 5379c4131b23e912dda9eddc0c309301d007414b
       body: |
