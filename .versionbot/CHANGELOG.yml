@@ -1,114 +1,7 @@
 - commits:
-    - subject: 'hostapp-update-hooks: Blacklist Rock Pi configuration file'
-      hash: 5379c4131b23e912dda9eddc0c309301d007414b
-      body: |
-        The Rock Pi 4B uses a file named hw_intf.conf for
-        enabling/disabling interfaces and for loading overlays.
-        Just noting that the syntax is also slightly different
-        from the config.txt file on RaspberryPi.
-
-        Let's blacklist this file to avoid overriding
-        it during an OS update.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Alexandru Costache <alexandru@balena.io>
-        signed-off-by: Alexandru Costache <alexandru@balena.io>
-      author: Alexandru Costache
-      nested: []
-  version: 2.85.8
-  date: 2021-09-29T13:49:00.466Z
-- commits:
-    - subject: 'balena-healthcheck: Remove redundant steps and rely on hello-world'
-      hash: 33925aa5132f23e92d3754b4422c22f40d854d42
-      body: |
-        In situations with limited resources the info and ps commands can take
-        an unecessarily long time when we really only need to know that a
-        container can be started.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Kyle Harding <kyle@balena.io>
-        signed-off-by: Kyle Harding <kyle@balena.io>
-      author: Kyle Harding
-      nested: []
-  version: 2.85.7
-  date: 2021-09-28T14:01:40.209Z
-- commits:
-    - subject: 'kernel-balena: Fix kernel config warning for UPROBE_EVENTS'
-      hash: 877a846369f8863145546afe4899de8f14148d94
-      body: |
-        Some BSP kernel configurations do not define FTRACE, so add it as a
-        dependency.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Alex Gonzalez <alexg@balena.io>
-        signed-off-by: Alex Gonzalez <alexg@balena.io>
-      author: Alex Gonzalez
-      nested: []
-    - subject: 'kernel-balena: Configure DEBUG_FS'
-      hash: 15694f9e9510cd0e2c5cd3514d611761724ef003
-      body: |
-        The debugging filesystem is usually mounted on user images and it is
-        enabled by default on most Linux distributions.
-
-        Fixes balena-os/balena-allwinner#128
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Alex Gonzalez <alexg@balena.io>
-        signed-off-by: Alex Gonzalez <alexg@balena.io>
-      author: Alex Gonzalez
-      nested: []
-  version: 2.85.6
-  date: 2021-09-27T10:20:36.218Z
-- commits:
-    - subject: Run iwlwifi firmware cleanup in fakeroot
-      hash: 24b6b9cdc0228c85671a0ba492cfd148a6c547ae
-      body: |
-        This prevents downstream linux-firmware fakeroot tasks, such as
-        firmware compression, from encountering Pseudo Abort due to files
-        changing outside the fakeroot context.
-      footer:
-        Change-type: patch
-        change-type: patch
-        Signed-off-by: Kyle Harding <kyle@balena.io>
-        signed-off-by: Kyle Harding <kyle@balena.io>
-      author: Kyle Harding
-      nested: []
-  version: 2.85.5
-  date: 2021-09-23T16:39:34.551Z
-- commits:
-    - subject: 'common: conf: create disable-user-ns distro feature'
-      hash: 7dde2133a5b1df710255b8b0471385cca1449c1d
-      body: >
-        When user namespacing was enabled in the kernel by default, a separate
-
-        commit [0] was introduced to disable the feature at runtime, to allow
-
-        users/administrators to explicitly choose to enable it, avoiding
-
-        potential security implications.
-
-
-        However, some applications such as Chromium's sandbox, require either
-
-        SUID or user namespacing to work. Disabling this feature on boards
-
-        that previously enabled it necessitates container modifications and
-
-        potentially breaks previously working applications.
-
-
-        Create a distro feature to disable user namespacing by default in
-
-        meta-balena, while allowing device types to keep it enabled to maintain
-
-        compatibility with their original behavior.
-
-
-        https://github.com/balena-os/meta-balena/commit/31c3ae8ad5c7ad45e450349b6972524da120e96c
+    - subject: 'common: image-balena: enable developmentMode when OS_DEVELOPMENT=1'
+      hash: 6526d63129db95b2ca703eecec5e1232b7b739f1
+      body: ''
       footer:
         Change-type: patch
         change-type: patch
@@ -117,7 +10,7 @@
       author: Joseph Kogut
       nested: []
   version: 2.85.4
-  date: 2021-09-21T19:37:48.181Z
+  date: 2021-10-01T20:33:09.017Z
 - commits:
     - subject: 'balena-os-sysctl: Reduce the console default loglevel'
       hash: 626b0e25cbd13ca65a74bbfe09ff9e0828b380bb

@@ -4,7 +4,7 @@ include conf/distro/include/balena-os-yocto-version.inc
 
 DISTRO = "balena-os"
 DISTRO_NAME = "balenaOS"
-DISTRO_VERSION = "2.85.8"
+DISTRO_VERSION = "2.85.4"
 HOSTOS_VERSION = "${DISTRO_VERSION}"
 python () {
     ''' Set HOSTOS_VERSION from board VERSION if available '''
@@ -35,9 +35,6 @@ DISTRO_FEATURES_DEFAULT_remove = "x11"
 # OS development image
 OS_DEVELOPMENT ?= "0"
 DISTRO_FEATURES_append = " ${@bb.utils.contains('OS_DEVELOPMENT','1','osdev-image','',d)}"
-
-# Disable user namespacing with a sysctl by default, but allow DTs to leave it enabled
-DISTRO_FEATURES_append = " disable-user-ns"
 
 # Providers
 PREFERRED_PROVIDER_docker ?= "docker"

@@ -1,31 +1,10 @@
 Change log
 -----------
 
-# v2.85.8
-## (2021-09-29)
-
-* hostapp-update-hooks: Blacklist Rock Pi configuration file [Alexandru Costache]
-
-# v2.85.7
-## (2021-09-28)
-
-* balena-healthcheck: Remove redundant steps and rely on hello-world [Kyle Harding]
-
-# v2.85.6
-## (2021-09-27)
-
-* kernel-balena: Fix kernel config warning for UPROBE_EVENTS [Alex Gonzalez]
-* kernel-balena: Configure DEBUG_FS [Alex Gonzalez]
-
-# v2.85.5
-## (2021-09-23)
-
-* Run iwlwifi firmware cleanup in fakeroot [Kyle Harding]
-
 # v2.85.4
-## (2021-09-21)
+## (2021-10-01)
 
-* common: conf: create disable-user-ns distro feature [Joseph Kogut]
+* common: image-balena: enable developmentMode when OS_DEVELOPMENT=1 [Joseph Kogut]
 
 # v2.85.3
 ## (2021-09-21)
