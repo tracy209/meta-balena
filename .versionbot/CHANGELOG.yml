@@ -1,4 +1,21 @@
 - commits:
+    - subject: Package iwlwifi-QuZ-a0-hr-b0 firmware separately
+      hash: 3dce45d506d053bd445ccca343cb839410fcf7a6
+      body: |
+        We add this fw on its own package so that boards can add it to
+        rootfs (for Intel NUC 11th generation more specifically)
+      footer:
+        Changelog-entry: Package iwlwifi-QuZ-a0-hr-b0 firmware separately
+        changelog-entry: Package iwlwifi-QuZ-a0-hr-b0 firmware separately
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Florin Sarbu <florin@balena.io>
+        signed-off-by: Florin Sarbu <florin@balena.io>
+      author: Florin Sarbu
+      nested: []
+  version: 2.85.9
+  date: 2021-10-04T04:16:32.336Z
+- commits:
     - subject: 'hostapp-update-hooks: Blacklist Rock Pi configuration file'
       hash: 5379c4131b23e912dda9eddc0c309301d007414b
       body: |
