@@ -1,4 +1,19 @@
 - commits:
+    - subject: 'common: docker-disk: bump tag to 20.10.8-dind'
+      hash: bee5309b34323eb7d3b1819a7c3243b303becdb0
+      body: |
+        Bump docker-disk base image from 19.03.10-dind to 20.10.8-dind, adding
+        support for cgroup v2.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Joseph Kogut <joseph@balena.io>
+        signed-off-by: Joseph Kogut <joseph@balena.io>
+      author: Joseph Kogut
+      nested: []
+  version: 2.85.11
+  date: 2021-10-11T20:24:27.403Z
+- commits:
     - subject: 'image-balena: Decouple boot directory generation from rootfs task'
       hash: 0a2a6bc11a0868c6cd858f28783eccfee5199ca9
       body: >
