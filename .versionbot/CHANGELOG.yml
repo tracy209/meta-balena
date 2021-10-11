@@ -1,4 +1,19 @@
 - commits:
+    - subject: Create new data partition reset service
+      hash: b2cbe67490da3b9385f7cdf1f47b3c0cfc1067b3
+      body: |
+        Similar to state-reset, the data partition will be mostly
+        purged if the remove_me_to_reset file is removed.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 2.86.0
+  date: 2021-10-11T14:43:42.330Z
+- commits:
     - subject: 'image-balena: Decouple boot directory generation from rootfs task'
       hash: 0a2a6bc11a0868c6cd858f28783eccfee5199ca9
       body: >
