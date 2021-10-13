@@ -1,4 +1,18 @@
 - commits:
+    - subject: 'balena-engine: Remove deprecated development drop-in service file'
+      hash: d4f45eea9a7266101caef2172b877afbe8df022d
+      body: |
+        This file is no longer used since the merge of dev and prod images.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 2.85.11
+  date: 2021-10-13T19:59:28.377Z
+- commits:
     - subject: 'image-balena: Decouple boot directory generation from rootfs task'
       hash: 0a2a6bc11a0868c6cd858f28783eccfee5199ca9
       body: >
