@@ -62,9 +62,9 @@ do_compile[noexec] = "1"
 
 do_install[depends] += "docker-disk:do_deploy"
 do_install () {
-        SUPERVISOR_IMAGE=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .services | .[].image' ${DEPLOY_DIR_IMAGE}/apps.json)
-        SUPERVISOR_APP_UUID=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .uuid' ${DEPLOY_DIR_IMAGE}/apps.json)
-        SUPERVISOR_SERVICE_NAME=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .services | .[].serviceName' ${DEPLOY_DIR_IMAGE}/apps.json)
+        SUPERVISOR_IMAGE=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .releases[].services | .[].image' ${DEPLOY_DIR_IMAGE}/apps.json)
+        SUPERVISOR_APP_UUID=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .releases | keys[]' ${DEPLOY_DIR_IMAGE}/apps.json)
+        SUPERVISOR_SERVICE_NAME=$(jq --raw-output '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .releases[].services | .[].serviceName' ${DEPLOY_DIR_IMAGE}/apps.json)
         bbnote "Pre-loaded supervisor: uuid ${SUPERVISOR_APP_UUID} image ${SUPERVISOR_IMAGE} service ${SUPERVISOR_SERVICE_NAME}"
 	# Generate supervisor conf
 	install -d ${D}${sysconfdir}/balena-supervisor/
