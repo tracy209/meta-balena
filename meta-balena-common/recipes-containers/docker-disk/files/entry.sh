@@ -60,7 +60,7 @@ docker save balena-healthcheck-image > ${BUILD}/balena-healthcheck-image.tar
 if [ -n "${SUPERVISOR_APP}" ] && [ -n "${SUPERVISOR_VERSION}" ]; then
 	image_sizes=$(install_app "${SUPERVISOR_APP}" "${SUPERVISOR_VERSION}")
         adjust_partition_size "${image_sizes}"
-	_supervisor_image=$(jq -r '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .services | .[].image' "${DATA_VOLUME}/apps.json")
+	_supervisor_image=$(jq -r '.apps | .[] | select(.name=="'"${SUPERVISOR_APP}"'") | .releases[].services | .[].image' "${DATA_VOLUME}/apps.json")
 	_supervisor_image_id=$(imageid_from_digest "${_supervisor_image}")
 	docker tag "${_supervisor_image_id}" "${SUPERVISOR_APP}":"${SUPERVISOR_VERSION}"
 fi
