@@ -228,7 +228,7 @@ install_app() {
 	local _bootable
 	local _isHost="false"
 	_appName="$1"
-	_version="$2"
+	_version="${2/v/}"
 	_api_env="${BALENA_API_ENV}"
 	_apps_json="${DATA_VOLUME}/apps.json"
 
