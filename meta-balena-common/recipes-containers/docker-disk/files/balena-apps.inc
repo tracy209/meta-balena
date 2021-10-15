@@ -16,28 +16,6 @@ __dlog() {
 	fi
 }
 
-# Get release commit ID from public application name for a specific release
-# Arguments:
-#
-# $1: Application name
-# $2: Release version label
-# $3: Balena API environment
-#
-# Result:
-# Prints the release database ID in stdout
-fetch_commitID_from_app() {
-	local _appName="${1}"
-	local _version="${2}"
-	local _apiEnv="${3}"
-	local _commitID=""
-
-	__dlog "[fetch_commitID_from_app] Fetching images from ${_appName}, release ${_version}"
-
-	# Fetch release commitID from application with specified version tag
-	_commitID=$(balena_api_fetch_release_json "${_appName}" "${_apiEnv}" "${_version}" | jq --raw-output '.d[0].commit')
-	echo "${_commitID}"
-}
-
 imageid_from_digest() {
 	local _image="$1"
 	local _digest
@@ -162,8 +140,10 @@ calculate_image_sizes() {
 # Updates a apps.json file with a new preloaded app
 # Arguments:
 #
-# $1: Application name
+# $1: Image JSON
 # $2: Release version
+# $3: App UUID
+# $4: APP ID
 #
 # Result:
 # Updated apps.json in $DATA_VOLUME and the app json as output for further processing
@@ -221,10 +201,11 @@ install_app() {
 	local _appID
 	local _svcID
 	local _appUUID
-	local _commitID
+	local _releaseID
+	local _releaseUUID
 	local _imageId
-	local _releaseId
-	local _json
+	local _image_json
+	local _release_json
 	local _bootable
 	local _isHost="false"
 	_appName="$1"
@@ -241,12 +222,14 @@ install_app() {
 		_isHost="true"
 	fi
 	if [ -n "${_appID}" ] && [ "${_appID}" != "null" ]; then
-		_json=$(balena_api_fetch_image_json "${_appName}" "${_api_env}" "${_version}")
-		[ -z "${_json}" ] && return
-		_releaseId=$(echo "${_json}" | jq --raw-output '.d[0].is_part_of__release[0].id')
+		_image_json=$(balena_api_fetch_image_json "${_appName}" "${_api_env}" "${_version}")
+		[ -z "${_image_json}" ] && return
+		_release_json=$(balena_api_fetch_release_json "${_appName}" "${_version}" "${_api_env}")
+		[ -z "${_release_json}" ] && return
+		_releaseID=$(echo "${_release_json}" | jq --raw-output '.id')
+		_releaseUUID=$(echo "${_release_json}" | jq --raw-output '.commit')
 		_appUUID=$(balena_api_appUUID_from_appName "${_appName}" "${_api_env}")
-		_commitID=$(fetch_commitID_from_app "${_appName}" "${_version}" "${_api_env}")
-		_image_sizes=$(calculate_image_sizes "${_json}")
+		_image_sizes=$(calculate_image_sizes "${_image_json}")
 	else
 		>&2 echo "[${_appName}] Application not found in ${_api_env}"
 		return  1
@@ -255,14 +238,15 @@ install_app() {
 	while read -r -d '' entry_json_app<<-EOF
 {
    "${_appUUID}": {
-        "commit": "${_commitID}",
-        "uuid": "${_appUUID}",
-        "releaseId": ${_releaseId},
-        "appId": ${_appID},
-        "releaseVersion": "${_version}",
+        "id": "${_appID}",
         "name": "${_appName}",
         "isHost": "${_isHost}",
-        "services": {}
+        "releases": {
+            "${_releaseUUID}": {
+              "id": "${_releaseID}",
+              "services": {}
+            }
+        }
     }
 }
 EOF
@@ -274,8 +258,8 @@ EOF
 	create_apps_json "${_apps_json}"
 	tmpfile=$(mktemp)
 	jq --argjson entry "${entry_json_app}" '.apps += $entry' "${_apps_json}" > "${tmpfile}"
-	entry_json_services=$(update_hostos_services "${_json}" "${_version}" "${_appUUID}" "${_appID}")
-	jq --argjson entry "${entry_json_services}" '.apps["'"${_appUUID}"'"].services += $entry' "${tmpfile}" > "${_apps_json}"
+	entry_json_services=$(update_hostos_services "${_image_json}" "${_version}" "${_appUUID}" "${_appID}")
+	jq --argjson entry "${entry_json_services}" '.apps["'"${_appUUID}"'"].releases["'"${_releaseUUID}"'"].services += $entry' "${tmpfile}" > "${_apps_json}"
 	rm -rf "${tmpfile}"
 	echo "${_image_sizes}"
 }
