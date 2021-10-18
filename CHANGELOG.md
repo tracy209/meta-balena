@@ -1,6 +1,19 @@
 Change log
 -----------
 
+# v2.86.0
+## (2021-10-18)
+
+* update-balena-supervisor: abstract fetching target state to library function [Alex Gonzalez]
+* os-helpers-api: Add os_helpers_fetch_target_state [Alex Gonzalez]
+* balena-supervisor: tag the supervisor container [Alex Gonzalez]
+* os-helpers-api: Add os_helpers_imageid_from_digest [Alex Gonzalez]
+* Add app UUID and service name labels to supervisor container [Alex Gonzalez]
+* Add a os-helper-api target script library [Alex Gonzalez]
+* update-balena-supervisor: Remove command line arguments [Alex Gonzalez]
+* resin-device-register: Use supervisor version label instead of tag [Alex Gonzalez]
+* Adapt balena-supervisor nomenclature to Balena's register pull [Alex Gonzalez]
+
 # v2.85.10
 ## (2021-10-04)
 

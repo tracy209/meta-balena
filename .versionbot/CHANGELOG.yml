@@ -1,4 +1,129 @@
 - commits:
+    - subject: >-
+        update-balena-supervisor: abstract fetching target state to library
+        function
+      hash: a6b603922b42f61ca474c9357e53c6f06d9fd8c9
+      body: |
+        In preparation of using a v3 target state, use a library functiont to
+        abstract fetching the supervisor details from the target state.
+
+        Also, check that only a single service image is returned.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: 'os-helpers-api: Add os_helpers_fetch_target_state'
+      hash: 17d616753a17f6ad403b3702ec80390a2126914a
+      body: |
+        This utility function abstracts the fetching of the target state to
+        handle different target state versions in a cleaner way.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: 'balena-supervisor: tag the supervisor container'
+      hash: d86a4d81ab9616a25b74fded70e4c99807a34116
+      body: |
+        Make the supervisor container more user friendly by tagging it with
+        a descriptive name.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: 'os-helpers-api: Add os_helpers_imageid_from_digest'
+      hash: d1c4d53c05a04a9f2abd59ecd11282e3c305819d
+      body: |
+        This utility function resolved an imageid from an image digest.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: Add app UUID and service name labels to supervisor container
+      hash: ce307faf9a4f54087ddbd00c6b1f09de4cec2e1f
+      body: |
+        The supervisor requires containers to be labeled with the app UUID and
+        the service name to handle them correctly.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Changelog-entry: Add app UUID and service name labels to supervisor container
+        changelog-entry: Add app UUID and service name labels to supervisor container
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: Add a os-helper-api target script library
+      hash: a92ce589fc1b0edf6441f5008abbb9515a2ff8a3
+      body: |
+        The update scripts need to share some common API related code.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Changelog-entry: Add a os-helper-api target script library
+        changelog-entry: Add a os-helper-api target script library
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: 'update-balena-supervisor: Remove command line arguments'
+      hash: 9b84500d26ec8562f241962533b5420d69204d79
+      body: |
+        The supervisor version is API driven, remove the option to update to a
+        command line provided image and version combination.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: 'resin-device-register: Use supervisor version label instead of tag'
+      hash: 4f9c979e7f6773646808a94c459a34fd8f17aea8
+      body: >
+        This is just a name change that reflects the wider change that the
+
+        supervisor is no longer fetched from dockerhub but from Balena's
+        registry.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+    - subject: Adapt balena-supervisor nomenclature to Balena's register pull
+      hash: 506ded1a6345849ca03a25ab9703e83087b281f2
+      body: |
+        Change variable names to reflect the supervisor is being pulled
+        from Balena's registry and not dockerhub.
+
+        When using dockerhub it used repository and tag to identify a supervisor
+        release, but in Balena's register we use app, version and record the
+        image path being used.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Changelog-entry: Adapt balena-supervisor nomenclature to Balena's register pull
+        changelog-entry: Adapt balena-supervisor nomenclature to Balena's register pull
+        Signed-off-by: Alex Gonzalez <alexg@balena.io>
+        signed-off-by: Alex Gonzalez <alexg@balena.io>
+      author: Alex Gonzalez
+      nested: []
+  version: 2.86.0
+  date: 2021-10-18T11:19:34.198Z
+- commits:
     - subject: 'image-balena: Decouple boot directory generation from rootfs task'
       hash: 0a2a6bc11a0868c6cd858f28783eccfee5199ca9
       body: >
